@@ -28,13 +28,13 @@ def plateDetect(image):
     img_open = cv2.morphologyEx(canny_image, cv2.MORPH_OPEN, kernel)
     (h, w) = img_open.shape[:2]
 
-    "Return a list containing the sum of the pixels in each column"
+    # --> Return a list containing the sum of the pixels in each column
     sumCols = []
     for j in range(w):
         col = 255 - img_open[0:h, j:j + 1]
         sumCols.append(w - np.sum(col / 255))
 
-    "Return a list containing the sum of the pixels in each row"
+    # --> Return a list containing the sum of the pixels in each row
     sumRows = []
     for j in range(h):
         row = 255 - img_open[j:j + 1, 0:w]

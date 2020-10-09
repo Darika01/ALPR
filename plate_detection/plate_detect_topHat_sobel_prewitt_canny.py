@@ -42,7 +42,6 @@ def mainVideo(cap, outputFile):
         start_frame_time = time.process_time()
 
         if hasFrame:
-
             # --> Convert to gray scale of each frames
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 

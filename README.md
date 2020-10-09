@@ -40,36 +40,41 @@ python plate_detect_projection.py --image test.jpg
 
 Detect LP from an image
 ````
-python plate_detect_topHat_sobel_prewitt_canny.py --image test.jpg
+python plate_detect_topHat_sobel_prewitt_canny.py --image test.jpg --detector canny
 ````
 
 To detect LP from a video
 ````
 python plate_detect_topHat_sobel_prewitt_canny.py --video test.mp4 --detector canny 
 ````
-
-With possible detectors: 
-- **tophat** (localization using morfological operation TopHat)
-- **sobel** (localization using Sobel operator for edge detection)
-- **prewitt** (localization using Prewitt operator for edge detection)
-- **canny** (localization using Canny edge detector)
+- -i, --image - Path to image file.\
+or \
+-v, --video - Path to video file.
+- -d, --detector - Edge detector or TopHat.
+  - **tophat** - localization using morfological operation TopHat;
+  - **sobel** - localization using Sobel operator for edge detection;
+  - **prewitt** - localization using Prewitt operator for edge detection;
+  - **canny** - localization using Canny edge detector;
 
 
 ### License Plate Recognition Using Haar or LBP Cascade Classifier
 
 Detect LP from an image
 ````
-python plate_detect_haar_lbp.py --image test.jpg
+python plate_detect_haar_lbp.py --image test.jpg --detector haar
 ````
 
 To detect LP from a video
 ````
 python plate_detect_haar_lbp.py --video test.mp4 --detector haar
 ````
+- -i, --image - Path to image file.\
+or \
+-v, --video - Path to video file.
+- -d, --detector - Cascade Classifier.
+  - **haar** - Haar cascade;
+  - **lbp** - LBP operator;
 
-With possible detectors: 
-- **haar** (Haar cascade)
-- **lbp** (LBP operator)
 
 
 ### License Plate Recognition Using Convolutional Neural Network (YOLO)
@@ -96,13 +101,13 @@ python plate_recognition/plate_recognition.py -i /cropped_license_plates/WZ2294N
 
 - -i, --image - Path to image file.
 - -c, --crop - Crop algorithm.
-  - none - don't crop (default value);
-  - projection - crop by projection;
-  - hough - crop using Hough transform;
+  - **none** - don't crop (default value);
+  - **projection** - crop by projection;
+  - **hough** - crop using Hough transform;
 - -p, --preprocess - Preprocess algorithm.
-  - none - don't use any filter (default value);
-  - thresh - image thresholding using Otsu's method;
-  - blur - image normalization using median filter;
+  - **none** - don't use any filter (default value);
+  - **thresh** - image thresholding using Otsu's method;
+  - **blur** - image normalization using median filter;
 - -s, --isShowCroppedPlate - Showing cropped plate
 
 
@@ -115,12 +120,12 @@ python plate_recognition/plate_recognition_segment.py -i /cropped_license_plates
 
 - -i, --image - Path to image file.
 - -c, --crop - Crop algorithm.
-  - none - don't crop (default value);
-  - projection - crop by projection;
-  - hough - crop using Hough transform;
+  - **none** - don't crop (default value);
+  - **projection** - crop by projection;
+  - **hough** - crop using Hough transform;
 - -p, --preprocess - Preprocess algorithm.
-  - none - don't use any filter (default value);
-  - blur - image normalization using median filter;
+  - **none** - don't use any filter (default value);
+  - **blur** - image normalization using median filter;
 - -s, --isShowCroppedPlate - Showing cropped plate.
 
 
