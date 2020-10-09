@@ -14,9 +14,9 @@ from topHat_sobel_prewitt_canny import detectPlate
 dir = os.path.dirname(__file__)
 
 parser = argparse.ArgumentParser(description='Object Detection using YOLO in OPENCV')
-parser.add_argument('--image', help='Path to image file.')
-parser.add_argument('--video', help='Path to video file.')
-parser.add_argument('--detector', help="Detector type. 'tophat, sobel, prewitt, canny'")
+parser.add_argument('-i', '--image', help='Path to image file.')
+parser.add_argument('-v', '--video', help='Path to video file.')
+parser.add_argument('-d', '--detector', help="Detector type. 'tophat, sobel, prewitt, canny'")
 args = parser.parse_args()
 
 print("args.detector", args.detector)

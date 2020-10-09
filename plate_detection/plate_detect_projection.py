@@ -10,25 +10,25 @@ import sys
 dir = os.path.dirname(__file__)
 
 parser = argparse.ArgumentParser(description='Object Detection using YOLO in OPENCV')
-parser.add_argument('--image', help='Path to image file.')
+parser.add_argument('-i', '--image', help='Path to image file.')
 args = parser.parse_args()
 
 def plateDetect(image):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    median = cv2.GaussianBlur(gray_image, (3, 9), 0)
-    (height, width) = median.shape[:2]
-
     plate_dimensions = (
-        0.02 * gray_image.shape[0], 0.20 * gray_image.shape[0],
-        0.1 * gray_image.shape[1], 0.38 * gray_image.shape[1])
+        0.02 * gray_image.shape[0], 0.16 * gray_image.shape[0],
+        0.1 * gray_image.shape[1], 0.28 * gray_image.shape[1])
     min_height, max_height, min_width, max_width = plate_dimensions
 
-    canny_image = cv2.Canny(median, 250, 255)
+    gauss = cv2.GaussianBlur(gray_image, (3, 9), 0)
+    canny_image = cv2.Canny(gauss, 250, 255)
 
     kernel = np.ones((int(min_height // 3), 1), np.uint8)
     img_open = cv2.morphologyEx(canny_image, cv2.MORPH_OPEN, kernel)
     (h, w) = img_open.shape[:2]
+
+    "Return a list containing the sum of the pixels in each column"
     sumCols = []
     for j in range(w):
         col = 255 - img_open[0:h, j:j + 1]
@@ -37,14 +37,13 @@ def plateDetect(image):
     "Return a list containing the sum of the pixels in each row"
     sumRows = []
     for j in range(h):
-        row = 255 - img_open[j:j + 1, 0:w]  # y1:y2, x1:x2
+        row = 255 - img_open[j:j + 1, 0:w]
         sumRows.append(h - np.sum(row / 255))
 
 
     def setup_axes(fig, rect, rotation, axisScale, axisLimits, doShift):
         tr_rot = Affine2D().scale(axisScale[0], axisScale[1]).rotate_deg(rotation)
 
-        # This seems to do nothing
         if doShift:
             tr_trn = Affine2D().translate(-90,-5)
         else:
@@ -67,10 +66,10 @@ def plateDetect(image):
     axisOrientation = [180, 180, 270, 180]
     axisScale = [[1,1],[-0.15,1],[0.05,0.5],[1,1]]
     axisPosition = [221,223,222,224]
-    axisLimits = [(0, width, 0, width),
-                (0, width, 0, np.max(sumCols)),
-                (0, width, 0, np.max(sumRows)),
-                (0, width, 0, width)]
+    axisLimits = [(0, w, 0, w),
+                (0, w, 0, np.max(sumCols)),
+                (0, w, 0, np.max(sumRows)),
+                (0, w, 0, w)]
 
     doShift = [False, False, False,False]
 
@@ -86,10 +85,6 @@ def plateDetect(image):
     axes[1].plot(sumCols);
     axes[2].plot(sumRows);
     axes[3].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-
-
-    # label_axes[0].axis["bottom"].label.set_text('Variable 1')
-    # label_axes[0].axis["left"].label.set_text('Variable 2')
 
     for i in range(1,len(label_axes)):
         for axisLoc in ['top','left','right']:

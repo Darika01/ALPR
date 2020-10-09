@@ -18,8 +18,8 @@ inpWidth = 416  #608     #Width of network's input image
 inpHeight = 416 #608     #Height of network's input image
 
 parser = argparse.ArgumentParser(description='Object Detection using YOLO in OPENCV')
-parser.add_argument('--image', help='Path to image file.')
-parser.add_argument('--video', help='Path to video file.')
+parser.add_argument('-i', '--image', help='Path to image file.')
+parser.add_argument('-v', '--video', help='Path to video file.')
 args = parser.parse_args()
 
 dir = os.path.dirname(__file__)

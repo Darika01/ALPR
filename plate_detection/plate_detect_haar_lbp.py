@@ -11,9 +11,9 @@ import numpy as np
 dir = os.path.dirname(__file__)
 
 parser = argparse.ArgumentParser(description='Object Detection using YOLO in OPENCV')
-parser.add_argument('--image', help='Path to image file.')
-parser.add_argument('--video', help='Path to video file.')
-parser.add_argument('--detector', help="Detector type. 'haar, lbp'")
+parser.add_argument('-i', '--image', help='Path to image file.')
+parser.add_argument('-v', '--video', help='Path to video file.')
+parser.add_argument('-d', '--detector', help="Detector type. 'haar, lbp'")
 args = parser.parse_args()
 
 if args.detector == 'haar':
