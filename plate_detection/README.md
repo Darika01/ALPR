@@ -1,11 +1,9 @@
 # License Plate Detection
 
-## License Plate Detection
-
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
 
-### License Plate Recognition Using Horizontal and Vertical Projection
+## License Plate Recognition Using Horizontal and Vertical Projection
 
 Detect LP from an image
 ````
@@ -13,7 +11,7 @@ python plate_detect_projection.py --image test.jpg
 ````
 
 
-### License Plate Recognition Based on Edge Detection Algorithm and Morphological Operations
+## License Plate Recognition Based on Edge Detection Algorithm and Morphological Operations
 
 Detect LP from an image
 ````
@@ -34,7 +32,7 @@ or \
   - **canny** - localization using Canny edge detector;
 
 
-### License Plate Recognition Using Haar or LBP Cascade Classifier
+## License Plate Recognition Using Haar or LBP Cascade Classifier
 
 Detect LP from an image
 ````
@@ -54,7 +52,7 @@ or \
 
 
 
-### License Plate Recognition Using Convolutional Neural Network (YOLO)
+## License Plate Recognition Using Convolutional Neural Network (YOLO)
 **Before usage download Yolo weights (*lapi.weights*) from this [Link](https://www.kaggle.com/achrafkhazri/yolo-weights-for-licence-plate-detector?select=lapi.weights)**
 
 Detect LP from an image
