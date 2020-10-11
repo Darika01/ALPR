@@ -23,7 +23,7 @@ def cropp_by_projection(input_img):
         col = 255 - img_close[0:h, j:j + 1]
         sumCols.append(np.sum(col / 255))
 
-    "Return a list containing the sum of the pixels in each column"
+    "Return a list containing the sum of the pixels in each row"
     sumRows = []
     for j in range(h):
         row = 255 - img_close[j:j + 1, 0:w]

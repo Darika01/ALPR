@@ -7,7 +7,6 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-import plate_cropp_projection as plate_cropp_proj
 # import verify_plate_by_vertical_projection as vert_projection
 from topHat_sobel_prewitt_canny import detectPlate
 
@@ -18,9 +17,6 @@ parser.add_argument('-i', '--image', help='Path to image file.')
 parser.add_argument('-v', '--video', help='Path to video file.')
 parser.add_argument('-d', '--detector', help="Detector type. 'tophat, sobel, prewitt, canny'")
 args = parser.parse_args()
-
-print("args.detector", args.detector)
-
 
 def mainVideo(cap, outputFile):
     # --> Trained XML classifiers describes some features of some object we want to detect
@@ -142,7 +138,7 @@ def mainImage(car_image, outputFile):
             img_rot, (size[0], size[1]+4), center)
 
         plate = cv2.resize(img_crop, (382, 84))
-        # ima = vert_projection.validate_plate(plate)
+        # verified_plate = vert_projection.validate_plate(plate)
 
         if plate is not None:
             box = cv2.boxPoints(area)
@@ -157,28 +153,32 @@ def mainImage(car_image, outputFile):
         round(end_time*1000, 1))
 
 outputFile = "detect_plate_output.mp4"
-if (args.image):
-    # Open the image file
-    if not os.path.isfile(args.image):
-        print("Input image file ", args.image, " doesn't exist")
-        sys.exit(1)
-    cap = cv2.imread(args.image)
-    outputFile = args.image[:-4]+ '_' + args.detector + '_detect_plate_output.jpg'
-    mainImage(cap, outputFile)
-    print("Done processing !!!")
-    print("Output file is stored as ", outputFile)
-elif (args.video):
-    # Open the video file
-    if not os.path.isfile(args.video):
-        print("Input video file ", args.video, " doesn't exist")
-        sys.exit(1)
-    # --> Capture frames from a video
-    cap = cv2.VideoCapture(args.video)
-    outputFile = args.video[:-4]+ '_' + args.detector + '_detect_plate_output.mp4'
-    mainVideo(cap, outputFile)
-    print("Done processing !!!")
-    print("Output file is stored as ", outputFile)
+if (args.detector):
+    if (args.image):
+        # Open the image file
+        if not os.path.isfile(args.image):
+            print("Input image file ", args.image, " doesn't exist")
+            sys.exit(1)
+        cap = cv2.imread(args.image)
+        outputFile = args.image[:-4]+ '_' + args.detector + '_detect_plate_output.jpg'
+        mainImage(cap, outputFile)
+        print("Done processing !!!")
+        print("Output file is stored as ", outputFile)
+    elif (args.video):
+        # Open the video file
+        if not os.path.isfile(args.video):
+            print("Input video file ", args.video, " doesn't exist")
+            sys.exit(1)
+        # --> Capture frames from a video
+        cap = cv2.VideoCapture(args.video)
+        outputFile = args.video[:-4]+ '_' + args.detector + '_detect_plate_output.mp4'
+        mainVideo(cap, outputFile)
+        print("Done processing !!!")
+        print("Output file is stored as ", outputFile)
+    else:
+        # Webcam input
+        cap = cv2.VideoCapture(0)
 else:
-    # Webcam input
-    cap = cv2.VideoCapture(0)
+    print("Entered wrong detector")
+    sys.exit(1)
 

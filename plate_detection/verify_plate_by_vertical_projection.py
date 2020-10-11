@@ -10,28 +10,25 @@ def validate_plate(inputImage):
     This method still needs improvement
 
     """
-    resized_candidate = cv2.resize(each_candidate, (186, 40))
+    resized_candidate = cv2.resize(inputImage, (186, 40))
 
     each_candidate = inverted_threshold(resized_candidate)
     height, width = each_candidate.shape
 
-    highest_average = 24
+    max_average = 24
     min_average = 15
 
     total_white_pixels = 0
-    # Return a list containing the sum of the pixels in each column
     sumCols = []
     for j in range(width):
         col = each_candidate[0:height, j:j + 1]
-        sumCols.append(np.sum(col/255))
+        sumCols.append(np.sum(col / 255))
         total_white_pixels = sum(sumCols)
 
+    # min_average & max_average are threshold values
     average = total_white_pixels / width
-    print('average', average)
-    if (average >= min_average) & (average < highest_average):
+    if (average >= min_average) & (average < max_average):
         return inputImage
-    # else:
-    #     return False
 
 
 def inverted_threshold(img):

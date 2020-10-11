@@ -41,7 +41,7 @@ def segmentAndRecognize(input_img, dirname, base):
             # draw a red bordered rectangle over the character
             cv2.rectangle(rgb_img, (x, y), (x + region_width, y + region_height), (255, 0, 0), 1)
 
-            # resize the characters and then append each character into the characters list
+            # resize the characters
             resized_letter = cv2.resize(letter_img, (20 * region_width // region_height, 20))
             (h, w) = resized_letter.shape[:2]
             
