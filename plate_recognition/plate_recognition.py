@@ -3,6 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 import argparse
 import sys
+import time
 
 import pytesseract
 
@@ -47,12 +48,19 @@ if (args.image):
     else:
         plate_normilized = plate_img
 
-    predicted_result = pytesseract.image_to_string(plate_normilized, config="-c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -l eng --oem 3 --psm 7")
+    whitelist = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    start_time = time.process_time()
+    predicted_result = pytesseract.image_to_string(plate_normilized,
+        config=f"-c tessedit_char_whitelist={whitelist} -l eng --psm 7")
+    process_time = round((time.process_time() - start_time) / len(base), 5)
+    
+    print('\nSingle character recognition process time: ', process_time*1000, ' ms')
+    print("\n-------------------------------------------\n")
 
     if args.isShowCroppedPlate:
         fig, arr = plt.subplots(2)
 
-        arr[0].imshow(img, cmap="gray")
+        arr[0].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), cmap="gray")
         arr[1].imshow(plate_normilized, cmap="gray")
 
         arr[0].set_title('Input plate')

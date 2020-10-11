@@ -36,8 +36,8 @@ def cropp_by_projection(input_img):
 
     left_l = 0
     left_none = []
-    while left_l < w / 4:
-        if sumCols[left_l] >= h * 0.75:
+    while left_l < w * 0.25:
+        if sumCols[left_l] >= h * 0.7:
             left_none = []
             left_line = left_l
         else:
@@ -51,7 +51,7 @@ def cropp_by_projection(input_img):
     right_l = w - 1
     right_none = []
     while right_l > w * 0.75:
-        if sumCols[right_l] >= h * 0.75:
+        if sumCols[right_l] >= h * 0.7:
             right_none = []
             right_line = right_l
         else:
@@ -88,7 +88,7 @@ def cropp_by_projection(input_img):
     # fig, axarr = plt.subplots(2, 2)
 
     # axarr[0, 0].imshow(invert_input_img, cmap="gray");
-    # axarr[1, 1].imshow(input_img, cmap="gray");
+    # axarr[1, 1].imshow(cropped_plate, cmap="gray");
     # axarr[0, 1].plot(sumCols);
     # axarr[1, 0].plot(sumRows);
     # plt.show()

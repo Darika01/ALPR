@@ -99,7 +99,6 @@ def cropp_by_hough_lines(input_img):
                 break
 
 
-    cropped_plate = cropped_plate[0: h, left_lines[0][0]:right_lines[0][0]]
     cropped_input_img = cropped_input_img[0: h, left_lines[0][0]:right_lines[0][0]]
     
     # rgb_img = cv2.cvtColor(input_img, cv2.COLOR_GRAY2BGR)
@@ -118,8 +117,6 @@ def cropp_by_hough_lines(input_img):
     # axarr[1].imshow(cropped_input_img, cmap="gray");
     # plt.show()
 
-    cropped_plate = cv2.bitwise_not(cropped_plate)
+    cropped_plate2 = cv2.copyMakeBorder(cropped_input_img, 1, 1, 1, 1, cv2.BORDER_CONSTANT, None, (0, 0, 0))
 
-    cropped_plate = cv2.copyMakeBorder(cropped_plate, 1, 1, 1, 1, cv2.BORDER_CONSTANT, None, (0, 0, 0))
-
-    return cropped_input_img
+    return cropped_plate2

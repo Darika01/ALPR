@@ -3,6 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 import argparse
 import sys
+import time
 
 import pytesseract
 
@@ -47,12 +48,17 @@ if (args.image):
     else:
         plate_normilized = plate_img
 
+    start_time = time.process_time()
     rgb_img, predicted_result_segm = segment_ocr.segmentAndRecognize(plate_normilized, dirname, base)
+    process_time = round((time.process_time() - start_time) / len(base), 5)
+
+    print('\nSingle character recognition process time: ', process_time*1000, ' ms')
+    print("\n-------------------------------------------\n")
 
     if args.isShowCroppedPlate:
         fig, arr = plt.subplots(3)
 
-        arr[0].imshow(img, cmap="gray")
+        arr[0].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), cmap="gray")
         arr[1].imshow(plate_normilized, cmap="gray")
         arr[2].imshow(rgb_img, cmap="gray")
 
