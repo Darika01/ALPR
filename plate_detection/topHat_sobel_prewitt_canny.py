@@ -5,7 +5,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def detectPlate(gray_car_image, detector):
-    # print("detector", detector)
 
     plate_dimensions = (
         # 0.02 * gray_car_image.shape[0], 0.20 * gray_car_image.shape[0],
@@ -22,7 +21,8 @@ def detectPlate(gray_car_image, detector):
         tophat = cv2.morphologyEx(gray_car_image, cv2.MORPH_TOPHAT, kernel)
 
         kernel_horizontal = np.ones((1, int(min_width)), np.uint8)
-        close = cv2.morphologyEx(tophat, cv2.MORPH_CLOSE, kernel_horizontal)
+        close = cv2.morphologyEx(tophat,
+            cv2.MORPH_CLOSE, kernel_horizontal)
 
         kernel_vertical = np.ones((int(min_height), 1), np.uint8)
         img_open_vertical = cv2.morphologyEx(close,
@@ -66,11 +66,12 @@ def detectPlate(gray_car_image, detector):
     if detector == 'sobel' or detector == 'prewitt' or detector == 'canny':
         # --> morphological operations: vertical open and horizontal close
         kernel_vertical = np.ones((int(min_height / 3), 1), np.uint8)
-        # kernel_vertical = np.ones((int(min_height // 5), 1), np.uint8)
-        img_open_vertical = cv2.morphologyEx(img_edge, cv2.MORPH_OPEN, kernel_vertical)
+        img_open_vertical = cv2.morphologyEx(img_edge,
+            cv2.MORPH_OPEN, kernel_vertical)
         
         kernel_horizontal = np.ones((1, int(min_width / 3)), np.uint8)
-        outputImage = cv2.morphologyEx(img_open_vertical, cv2.MORPH_CLOSE, kernel_horizontal)
+        outputImage = cv2.morphologyEx(img_open_vertical,
+            cv2.MORPH_CLOSE, kernel_horizontal)
 
     # cv2.imshow('detection', outputImage)
     # cv2.waitKey(0)

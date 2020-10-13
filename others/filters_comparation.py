@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 dir = os.path.dirname(__file__)
 
 def filterImageGaussMedian():
-    image_uri = os.path.join(dir, '../images/car.jpg')
+    image_uri = os.path.join(dir, '../plate_detection/test_data/images/test.jpg')
     image = cv2.imread(image_uri)
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -69,7 +69,7 @@ def salt_pepper_noise(image, prob, noise):
 
 
 def filterImageErosionDilation():
-    image_uri = os.path.join(dir, '../images/car.jpg')
+    image_uri = os.path.join(dir, '../plate_detection/test_data/images/test.jpg')
     image = cv2.imread(image_uri)
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -108,7 +108,7 @@ def filterImageErosionDilation():
 
 
 def image_open_close():
-    image_uri = os.path.join(dir, '../images/tor_binarize.png')
+    image_uri = os.path.join(dir, '../plate_detection/test_data/images/tor_binarize.png')
     image = cv2.imread(image_uri)
     
     kernel = np.ones((3, 3), np.uint8)
@@ -127,6 +127,6 @@ def image_open_close():
     plt.show()
 
 
-filterImageGaussMedian()
-# filterImageErosionDilation()
+# filterImageGaussMedian()
+filterImageErosionDilation()
 # image_open_close()
